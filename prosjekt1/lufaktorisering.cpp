@@ -43,7 +43,7 @@ int main(){
     for (int i=n-1;i>-1;i--){
         z(i)=y(i);
         for (int j=n-1;j>i-1;j--){
-            z(i)-=U(i,j)*x(j);
+            z(i)-=U(i,j)*z(j);
         }
         z(i)/=U(i,i);
     }
