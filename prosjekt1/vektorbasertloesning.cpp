@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <armadillo>
-
+#include "time.h"
 using namespace std;
 using namespace arma;
 
@@ -21,13 +21,15 @@ int main(){
     //setter verdier inn i null-arrayene over:
     for (int i=0;i<n;i++){
          b(i)=2;
-         c(i)=-1;
-         a(i)=-1;
+         c(i)=-1;// vi trenger vel strengt tatt ikke bruke vektorer her 
+         a(i)=-1;// siden alle elementene er like og konstante
 
          x(i)=(i+1)*h;
-         v(i)=100.0*exp(-10.0*x(i))*h*h;
+         v(i)=100.0*exp(-10.0*x(i))*h*h;//v=f(x)*h^2
          u(i)=1.0-(1.0-exp(-10.0))*x(i)-exp(-10.0*x(i));
     }
+    clock_t start, finish;
+    start = clock();
     //foroversubstitusjon
     for (int i=1;i<n;i++){
         k=-a(i)/b(i-1);
@@ -39,6 +41,9 @@ int main(){
     for (int i=n-2;i>=0;i--){
         v(i)-=c(i)/b(i+1)*v(i+1);
     }
+    finish = clock();
+    cout.precision(5);
+    cout <<( (finish - start)/CLOCKS_PER_SEC)<<endl<<endl;
     //epsilon er log(relativ feil) i v sammenlignet med u
     vec epsilon =zeros(n);
     double epsilonmax=-1;// feilen bør være mer positiv enn dette tallet
