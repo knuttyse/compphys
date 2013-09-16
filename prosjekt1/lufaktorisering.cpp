@@ -17,10 +17,6 @@ int main(){
         A(i-1,i)=-1;// c_i=-1
     }
 
-    mat L, U, P;
-    clock_t start, finish;
-    start = clock();//starter å måle tid
-    lu(L, U, P, A); // LU-faktoriserer den tri-diagonale matrisen
     vec x =zeros(n); // variabelen x
     vec v =zeros(n); // vektor med kjent verdi: Ax=v
     vec u= zeros(n); // eksakt loesning
@@ -31,6 +27,12 @@ int main(){
          x(i)=(i+1)*h;
          v(i)=100.0*exp(-10.0*x(i))*h*h;
          u(i)=1.0-(1.0-exp(-10.0))*x(i)-exp(-10.0*x(i));
+         
+    mat L, U, P;
+    clock_t start, finish;
+    start = clock();//starter å måle tid
+    lu(L, U, P, A); // LU-faktoriserer den tri-diagonale matrisen
+
     }
     //finn y:
     for (int i=0;i<n;i++){
